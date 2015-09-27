@@ -1,0 +1,4 @@
+
+0.8.2
+Added feature: check for update in main menu
+Bug fix: adview null pointer on reload attempt
