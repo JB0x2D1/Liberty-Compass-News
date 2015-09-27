@@ -1,0 +1,22 @@
+0.6.1
+working widget configuration activity with RGB slider bars that update hex color
+edittext field, edittext updates slider bars when valid hex values are entered, 
+widget background can be selected from among pre-configured choices.
+
+0.7.4
+receive notification that new version is available
+
+0.8.0
+Added clear widget background
+Bug fix: update available notification when at latest version
+Bug fix: screen rotation in main activity returns to home page
+
+0.8.2
+Added feature: check for update in main menu
+Bug fix: adview null pointer on reload attempt
+
+0.8.3
+Re-added clear widget option that somehow got lost
+
+0.8.4
+Added feature: clicking left side of widget cycles backwards in headlines
