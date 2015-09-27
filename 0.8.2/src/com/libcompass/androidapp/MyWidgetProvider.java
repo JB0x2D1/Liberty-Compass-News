@@ -32,12 +32,8 @@ import android.widget.RemoteViews;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 
-//DONE: Added clear background
-//DONE: fix bug: update available when at latest version
-//TODO: menu button to check for updates
-
-	/* Display a TextView that retrieves a list of headlines and URLs 
-	 * corresponding to those headlines cycles headlines.  Headlines are
+	/* Display a TextView that retrieves a list of headlines.  
+	 * Maintain URLs corresponding to those headlines.  Headlines are
 	 * displayed in the TextView.  When the TextView is clicked, the next
 	 * headline is displayed.  When the TextView is double clicked, the default
 	 * browser is launched with a URL to the displayed headline. 
@@ -55,7 +51,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	protected static String latestVersion = "";
 	protected static String APK_URL = "";
 	private static NotificationManager mNotificationManager = null;
-	//private static Context myContext;
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -63,8 +58,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		textColor = context.getSharedPreferences("widget", Context.MODE_PRIVATE).getInt("textcolor", Color.BLACK);
 		widgetBackground = context.getSharedPreferences("widget", Context.MODE_PRIVATE).getInt("widgetbg", R.drawable.bg_grey);
 		index = context.getSharedPreferences("widget", Context.MODE_PRIVATE).getInt("index", 0);
+		// check if new version available.  Send notification if update available
 		if (!atLatestVersion()) {
-//			Toast.makeText(context, "Not at latest version", Toast.LENGTH_LONG).show();
 			notifyNewVersion(context);
 			latestVersion = "";
 		}
@@ -99,12 +94,13 @@ public class MyWidgetProvider extends AppWidgetProvider {
 				}
 			}
 		} else {
+			// if no saved headlines, display message in widget
 			LINKSarray = new String[1]; 
 			LINKSarray[0] = "No Network Connection.  Tap To Retry.";
 		}
-		//if only changing color index should be same as last update so decrement by one and reset flag
-		if (dontIncrementIndex && index > 0) {
-			--index;
+		//if only changing color, index should be same as last update so decrement by one and reset flag
+		if (dontIncrementIndex) {
+			if (index > 0) --index;
 			dontIncrementIndex = false;
 		}
 		//set widget background to user preference (or default)
@@ -116,6 +112,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	    context.getSharedPreferences("widget", 0).edit().putInt("clicks", 0).commit();
 	    //correct for array out of bounds
 	    if (index >= LINKSarray.length) index = 0;
+	    // save position in headlines array to sharedprefs
 	    context.getSharedPreferences("widget", Context.MODE_PRIVATE).edit().putInt("index", index).commit();
 	}
 	
@@ -168,7 +165,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
         	ComponentName thisAppWidget = new ComponentName(context.getPackageName(), MyWidgetProvider.class.getName());
         	int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
         	dontIncrementIndex = true;
-        	onUpdate(context, appWidgetManager, appWidgetIds);
+        	if (context!=null && appWidgetManager != null && appWidgetIds != null) onUpdate(context, appWidgetManager, appWidgetIds);
 		} else if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) { //update widget on network state change
 			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         	ComponentName thisAppWidget = new ComponentName(context.getPackageName(), MyWidgetProvider.class.getName());
@@ -200,7 +197,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 				} catch (IOException e) {
 					Error = e.getMessage();
 					cancel(true);
-				} //save the URLs and headlines internally
+				} //save the URLs and headlines
 				if (c == 0) URLSarray = Content.split(System.getProperty("line.separator"));
 				if (c == 1) LINKSarray = Content.split(System.getProperty("line.separator"));
 				if (c == 2) {
@@ -218,10 +215,12 @@ public class MyWidgetProvider extends AppWidgetProvider {
 				RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 				remoteViews.setTextViewText(R.id.update, Error);
 			}
+			//if data was successfully saved to sharedprefs, last updated time is now
 			if (saveArray(LINKSarray, "LINKSarray", context) && saveArray(URLSarray, "URLSarray", context))
 				updated = new Date().getTime();
 		}
 	}
+	//save string array to sharedprefs
 	public boolean saveArray(String[] array, String arrayName, Context mContext) { 
 		SharedPreferences prefs = mContext.getSharedPreferences("preferencename", 0);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -229,6 +228,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		for(int i=0;i<array.length;i++) editor.putString(arrayName + "_" + i, array[i]);
 		return editor.commit();
 	}
+	//load string array from sharedprefs
 	public String[] loadArray(String arrayName, Context mContext) {
 		SharedPreferences prefs = mContext.getSharedPreferences("preferencename", 0);
 		int size = prefs.getInt(arrayName + "_size", 0);
@@ -236,7 +236,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		for(int i=0;i<size;i++) array[i] = prefs.getString(arrayName + "_" + i, null);
 		return array;
 	}
-	
+	//notify if a new version is available for download
 	private static void notifyNewVersion(Context context) {
 		Notification.Builder mBuilder =
 		        new Notification.Builder(context)
@@ -269,13 +269,13 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	protected static void dismissNotification() {
 		if (mNotificationManager != null) mNotificationManager.cancel(NEW_VERSION);
 	}
-	
+	//only check if data downloaded from server indicates that this app is up to date
 	private static boolean atLatestVersion() {
 		if (latestVersion == "") return true;
 		return Integer.valueOf((latestVersion.split("\\.")[0]+latestVersion.split("\\.")[1]+latestVersion.split("\\.")[2])) <= 
 		Integer.valueOf(MainActivity.version.split("\\.")[0]+MainActivity.version.split("\\.")[1]+MainActivity.version.split("\\.")[2]);
 	}
-	
+	//check if new version is available AND send notification if a new version is available
 	protected static boolean newVersionAvailable (Context context) {
 		if (atLatestVersion()) return false;
 		notifyNewVersion(context);

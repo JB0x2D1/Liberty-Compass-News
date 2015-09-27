@@ -24,11 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WidgetConfig extends Activity {
+	
+	/* Choose background of widget and text color using slider bars, spinner,
+	 * and edittext */
+	
 	private int mAppWidgetId = 0 ;
 	private int textColor = Color.BLACK;
 	private int widgetBg = R.drawable.bg_grey;
 	 
-    @Override
+    //initialize the view
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config_layout); //so findViewById works

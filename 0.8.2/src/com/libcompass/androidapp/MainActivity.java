@@ -22,10 +22,11 @@ import android.webkit.WebViewClient;
 
 @SuppressLint("SetJavaScriptEnabled") 
 public class MainActivity extends Activity {
-	protected static final String version = "0.8.2";
+
 	/* Display www.libcompass.com in the main WebView and ads in the small
 	 * WebView. */
-	//TODO: fix null pointer in webview reload
+
+	protected static final String version = "0.8.2";
 	private static Activity act;
 	
 	@Override
@@ -33,7 +34,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		act = this;
-		PlaceholderFragment frag = new PlaceholderFragment();
+		MyFragment frag = new MyFragment();
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, frag).commit();
@@ -53,12 +54,12 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-        if (id == R.id.menu_home) {
+        if (id == R.id.menu_home) { // load the home page in the main webview
         	WebView myWebView = (WebView) findViewById(R.id.webview);
         	myWebView.loadUrl("http://www.libcompass.com");
             return true;
         }
-        if (id == R.id.menu_about) {
+        if (id == R.id.menu_about) { // display "About" dialog
         	new AlertDialog.Builder(this)
             .setTitle("About")
             .setMessage("Liberty Compass News\nVersion: " + version + "\n\nReport Bugs: android@libcompass.com")
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
             .setIcon(android.R.drawable.ic_dialog_info)
              .show();
         }
-        if (id == R.id.menu_check_update) {
+        if (id == R.id.menu_check_update) { // check server for new version of this app, display dialog with result
         	if (MyWidgetProvider.newVersionAvailable(getBaseContext())) {
         		new AlertDialog.Builder(this)
                 .setTitle("Update Available")
@@ -96,14 +97,14 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * A placeholder fragment containing a simple view.
+	 * The view fragment of the main activity 
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	public static class MyFragment extends Fragment {
 		
 		private static WebView wv, av;
 		private Bundle webViewBundle;
 		
-		public PlaceholderFragment() {
+		public MyFragment() {
 		}
 
 		@Override
@@ -111,11 +112,12 @@ public class MainActivity extends Activity {
 				Bundle savedInstanceState) {
 			View v = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			// restore state if possible
 			if (webViewBundle != null) {
 				wv.restoreState(webViewBundle); 
 				av.restoreState(webViewBundle);
 			}
-			else {
+			else { // initialize new state
 				wv = (WebView) v.findViewById(R.id.webview);
 				wv.getSettings().setJavaScriptEnabled(true);
 				wv.setWebViewClient(new WebViewClient());
@@ -135,7 +137,6 @@ public class MainActivity extends Activity {
 				wv.loadUrl("http://www.libcompass.com/");
 				av.loadUrl("http://www.libcompass.com/ads.htm");
 			}
-			//new ReloadWebView(this, 60, ((WebView)findViewById(R.id.adview)));//refresh ads after 60 seconds
 			return v;
 		}
 		
@@ -163,8 +164,9 @@ public class MainActivity extends Activity {
 	    @Override
 	    public void onViewCreated(View view, Bundle savedInstanceState) {
 	        super.onViewCreated(view, savedInstanceState);
+	        // set timertask to reload ad webview every 60 seconds
 	        WebView adview = (WebView) view.findViewById(R.id.adview);
-	        new ReloadWebView(act, 60, adview);//refresh ads after 60 seconds
+	        new ReloadWebView(act, 60, adview);
 	    }
 	}
 
@@ -198,7 +200,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void run() {
-            if(context == null || context.isFinishing()) { //|| wv == null) {
+            if(context == null || context.isFinishing()) {
                 // Activity killed
                 this.cancel();
                 return;

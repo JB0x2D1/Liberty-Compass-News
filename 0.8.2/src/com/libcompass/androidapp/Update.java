@@ -9,13 +9,14 @@ import android.widget.Toast;
 
 public class Update extends Activity {
 
-	/** Called when the activity is first created. */
+	/* enqueue new version of app for download in download manager, send a toast
+	 * that download has started, dismiss notification. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	
 	    DownloadManager.Request r = new DownloadManager.Request(Uri.parse(MyWidgetProvider.APK_URL));
-		// This put the download in the same Download dir the browser uses
+		// This puts the download in the same Download dir the browser uses
 	    String filename = "LibertyCompassNews.apk";
 	    r.setDescription(filename);
 		r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
