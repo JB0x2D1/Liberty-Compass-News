@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Liberty Compass News</string>
+    <string name="menu_home_string">Home</string>
+    <string name="menu_about_string">About</string>
+    <string name="menu_check_update_string">Check for Update</string>
+    <string name="configtext">How To Use:\nTap widget once to view next headline.\nDouble tap widget to read the current story in your web browser.\nTap left side of widget to view previous story</string>
+    <string name="ok">OK</string>
+
+</resources>

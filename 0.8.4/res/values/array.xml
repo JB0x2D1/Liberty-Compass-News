@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="bg_colors_array">
+        <item>Black</item>
+        <item>Grey</item>
+		<item>White</item>
+        <item>Clear</item>
+        </string-array>
+</resources>
