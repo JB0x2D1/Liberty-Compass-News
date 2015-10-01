@@ -20,3 +20,15 @@ Re-added clear widget option that somehow got lost
 
 0.8.4
 Added feature: clicking left side of widget cycles backwards in headlines
+
+0.8.6
+Fixed widget downloading from server on every click
+Fixed mishandling system-generated widget update broadcasts
+Added checks for network connectivity at every network operation
+
+0.9.0
+Configuration activity configures only one widget, not all.
+Added time data was downloaded to widget view.
+Added a timeout to all networking operations.
+Fixed 'Download Successful' toast when toast option is set to false.
+Added double tap right side of widget to reconfigure settings.
