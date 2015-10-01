@@ -12,4 +12,6 @@ WidgetConfig: display use instructions, allow user selection of background color
   red, green, and blue slider bars or an edittext field for RGB hex value).  Sliders update edittext and vice versa.
   A preview of how the chosen colors will look is displayed.
   
-Update: enqueue the latest version of the .apk with the system download manager
+DownloadUpdate: enqueue the latest version of the .apk with the system download manager
+
+FetchData: download updated headlines, URLs to news stories, and latest app version information from the server in an Asynchronous Task
