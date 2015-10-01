@@ -41,14 +41,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	 * browser is launched with a URL to the displayed headline. 
 	 */
 	
-	//DONE: only update the new widget from the configuration activity
-	//DONE: added time updated to widget view
-	//DONE: don't do anything if device screen is off, listen for
-	//	lock screen unlock and call onUpdate at that time. Goal: save battery & data.
-	//DONE: added timeout on server downloads by adding method downloadAndSave
-	//DONE: fixed "Download "Successful" toast when toast option is set to false
-	//DONE: added option to reconfigure widget
-	
 	//CONSTANTS
 	private static final String ACTION_BACK = "com.libcompass.androidapp.ACTION_BACK";
 	private static final String ACTION_CLICK = "com.libcompass.androidapp.ACTION_CLICK";
@@ -286,8 +278,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 			context.getSharedPreferences("widget", Context.MODE_PRIVATE).edit().putLong("updatefrequency", updateFrequency).commit();
 			doubleClickDelay = intent.getIntExtra("taptapspeed", 200);
 			context.getSharedPreferences("widget", Context.MODE_PRIVATE).edit().putInt("doubleclickdelay", doubleClickDelay).commit();
-//			views = updateWidget(context, widgetId);
-//			appWidgetManager.updateAppWidget(widgetId, views);
 		} 
 	}//onReceive
 	
@@ -357,8 +347,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		context.getSharedPreferences("widget", Context.MODE_PRIVATE).edit().putString("latestVersion", latestVersion).commit();
 		return true;
 	}
+	//save the values that change often.
 	private static void saveEverything(Context context) {
-		//save the values that change often.  
 		//textColor, widgetBackground, and updateFrequency are omitted
 		Date now = new Date();
 		context.getSharedPreferences("widget", Context.MODE_PRIVATE).edit().putLong("index"+String.valueOf(widgetId), index).commit();
@@ -367,8 +357,8 @@ public class MyWidgetProvider extends AppWidgetProvider {
 		if (URLSarray != null) saveArray(URLSarray, "URLSarray", context);
 		if (LINKSarray != null) saveArray(LINKSarray, "LINKSarray", context);
 	}
+	//load all saved values from sharedprefs
 	private void loadEverything(Context context, int widgetId) {
-		//load all saved values from sharedprefs
 		//widgetId specific values
 		index = context.getSharedPreferences("widget", Context.MODE_PRIVATE).getInt("index"+String.valueOf(widgetId), 0);
 		textColor = context.getSharedPreferences("widget", Context.MODE_PRIVATE).getInt("textcolor"+String.valueOf(widgetId), Color.BLACK);
@@ -384,6 +374,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	protected static void downloadAndSave(Context context, boolean toast) {
 		downloadAndSave(context, toast, null);
 	}
+	//download headlines, URLs, latest app version info.  Save to sharedprefs
 	protected static void downloadAndSave(final Context context, final boolean toast, final OnTaskCompleted otc) {
 		/* Download data from server silently if toast == false,
 		 * or with a success/error Toast if toast == true.
@@ -444,15 +435,14 @@ public class MyWidgetProvider extends AppWidgetProvider {
     		}
     	}.start();
 	}
-	
+	//set values following download from serever
 	protected static void setDownloadedValues(String[] URLS, String[] LINKS, String latest, String APK) {
 		URLSarray = URLS;
 		LINKSarray = LINKS;
 		latestVersion = latest;
 		APK_URL = APK;
-	}
-	
-	//return a RemoteViews representing the widget corresponding to widgetId
+	}	
+	//redraw the view representing the widget corresponding to widgetId
 	private void updateWidget(final Context context, final int widgetId) {
 		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 //get values from sharedprefs and don't move on until it is done
