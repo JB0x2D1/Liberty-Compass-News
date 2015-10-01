@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widget_linear_layout"
+	    android:layout_margin="8dip"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:background="@drawable/bg_grey" >
+	    <TextView
+		    android:id="@+id/update"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    style="@android:style/TextAppearance.Medium"
+		    android:layout_gravity="center"
+		    android:gravity="center_horizontal|center_vertical"
+		    android:clickable="true"
+		    android:paddingLeft="5dp"
+		    android:paddingRight="5dp"
+		    android:textColor="#000000"
+		    android:text="Loading... Please wait..." />
+	    <LinearLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentBottom="true"
+			android:background="@drawable/black"
+			android:paddingLeft="4dp" >
+		    <TextView
+		        android:id="@+id/updatetime"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingRight="2dp"
+		        android:textSize="12sp"
+		        android:textColor="#FFAAAAAA" />
+	    </LinearLayout>
+		<ImageView
+		    android:id="@+id/clear"
+		    android:layout_width="65dp"
+		    android:layout_height="match_parent"
+		    android:layout_alignParentLeft="true"
+		    android:src="@drawable/clear" />
+		<ImageView
+		    android:id="@+id/updatedata"
+		    android:layout_width="65dp"
+		    android:layout_height="match_parent"
+		    android:layout_alignParentRight="true"
+		    android:src="@drawable/clear" />
+    </RelativeLayout>
