@@ -32,3 +32,7 @@ Added time data was downloaded to widget view.
 Added a timeout to all networking operations.
 Fixed 'Download Successful' toast when toast option is set to false.
 Added double tap right side of widget to reconfigure settings.
+
+1.0.0
+Changed network connectivity check to test if server is reachable.
+Fixed bug affecting new version download.

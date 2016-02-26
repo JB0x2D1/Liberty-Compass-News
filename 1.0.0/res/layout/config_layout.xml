@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content" >
+	<LinearLayout 
+	 android:orientation="vertical"
+	 android:layout_width="fill_parent"
+	 android:layout_height="wrap_content"
+	 android:focusable="true"
+	 android:focusableInTouchMode="true"
+	>
+		<TextView
+		 android:layout_width="fill_parent"
+		 android:layout_height="wrap_content"
+		 style="@android:style/TextAppearance.Medium"
+		 android:layout_gravity="center"
+		 android:gravity="center_horizontal|center_vertical"
+		 android:padding="5dp"
+		 android:text="@string/configtext"
+		/>
+		<RelativeLayout
+	   	 android:layout_width="fill_parent"
+	   	 android:layout_height="100dp"
+		>
+			<ImageView
+		    	android:id="@+id/previewbg"
+		    	android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+			    android:paddingLeft="20dp"
+				android:paddingRight="20dp"
+		    	android:src="@drawable/bg_grey"
+		    />
+			<TextView 
+			    android:id="@+id/previewtext"
+			    android:layout_width="fill_parent"
+			    style="@android:style/TextAppearance.Medium"
+		    	android:layout_height="fill_parent"
+			    android:text="Breaking News!  Those Clowns in Congress Messed Up Again!"
+			    android:layout_gravity="center"
+		    	android:gravity="center_horizontal|center_vertical"
+		    	android:paddingLeft="25dp"
+		    	android:paddingRight="25dp"
+			/>
+			<ImageView
+			    android:id="@+id/previewback"
+			    android:layout_width="85dp"
+			    android:layout_height="match_parent"
+			    android:paddingLeft="20dp"
+			    android:layout_alignParentLeft="true"
+			    android:src="@drawable/tint_red" />
+			<ImageView
+			    android:id="@+id/previewrefresh"
+			    android:layout_width="85dp"
+			    android:layout_height="match_parent"
+			    android:paddingRight="20dp"
+			    android:layout_alignParentRight="true"
+			    android:src="@drawable/tint_green" />
+		</RelativeLayout>
+		<TextView
+		    android:layout_width="wrap_content"
+		   	android:layout_height="wrap_content"
+		   	android:layout_gravity="center"
+		    style="@android:style/TextAppearance.Medium"
+		   	android:textColor="#FFF"
+		    android:text="Tap: Next Headline\nTapTap: Read Story"
+		   	android:gravity="center_horizontal|center_vertical"
+		/>
+		<RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    style="@android:style/TextAppearance.Medium"
+		    	android:gravity="center_horizontal|center_vertical"
+			    android:layout_alignParentLeft="true"
+			    android:paddingLeft="20dp"
+			    android:textColor="#F00"
+			    android:text="Previous\nHeadline"/>
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    style="@android:style/TextAppearance.Medium"
+		    	android:gravity="center_horizontal|center_vertical"
+			    android:layout_alignParentRight="true"
+			    android:paddingRight="20dp"
+			    android:textColor="#0F0"
+			    android:text="Tap: Refresh News\nTapTap: Reset Colors"/>
+		</RelativeLayout>
+		<RelativeLayout
+		    android:id="@+id/background_selection"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
+			<TextView
+			    android:id="@+id/bgprompt"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toLeftOf="@+id/spinner"
+			    android:paddingTop="15dp"
+			    android:text="Background Color: "/>
+	 		<Spinner
+			    android:id="@+id/spinner"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerInParent="true" />
+ 		</RelativeLayout>
+		<RelativeLayout
+		    android:id="@+id/update_frequency_selection"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
+			<TextView
+			    android:id="@+id/updateprompt"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:gravity="center_horizontal|center_vertical"
+			    android:layout_toLeftOf="@+id/spinner_update_frequency"
+			    android:paddingBottom="20dp"
+			    android:text="News Download\nFrequency: "/>
+	 		<Spinner
+			    android:id="@+id/spinner_update_frequency"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:paddingBottom="20dp"
+			    android:layout_centerInParent="true" />
+ 		</RelativeLayout>
+ 		<RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
+			<TextView
+			    android:id="@+id/speedprompt"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toLeftOf="@+id/spinnerspeed"
+			    android:paddingTop="15dp"
+			    android:text="TapTap Speed: "/>
+	 		<Spinner
+			    android:id="@+id/spinnerspeed"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerInParent="true" />
+ 		</RelativeLayout>
+		<TextView
+ 		    android:id="@+id/textcolorlabel"
+ 		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:paddingLeft="5dp"
+			android:paddingRight="5dp"
+		    android:text="Text Color:" />
+		<TextView
+		    android:id="@+id/red"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+		    android:textColor="#FF0000"
+		    android:text="Red" />
+		<SeekBar
+			android:id="@+id/seek1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp"
+			android:progressDrawable="@drawable/red_scrubber_progress_horizontal_holo_light"
+			android:thumb="@drawable/red_scrubber_control_selector_holo_light"
+			android:progress="0"
+			android:max="255" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+		    android:textColor="#00FF00"
+		    android:text="Green"
+		/>
+		<SeekBar
+			android:id="@+id/seek2"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp"
+			android:progressDrawable="@drawable/green_scrubber_progress_horizontal_holo_light"
+			android:thumb="@drawable/green_scrubber_control_selector_holo_light"
+			android:progress="0"
+			android:max="255" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+		    android:textColor="#0000FF"
+		    android:text="Blue"
+		/>
+		<SeekBar
+			android:id="@+id/seek3"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp"
+			android:progressDrawable="@drawable/blue_scrubber_progress_horizontal_holo_light"
+			android:thumb="@drawable/blue_scrubber_control_selector_holo_light"
+			android:progress="0"
+			android:max="255" />
+		<EditText
+			android:id="@+id/widget_text_color"
+			android:layout_width="100dp"
+			android:layout_height="wrap_content"
+			android:inputType="textNoSuggestions"
+			android:layout_gravity="center"
+			android:gravity="center_horizontal"
+		 />
+		<Button
+			android:id="@+id/btn_ok"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/ok"
+			android:textStyle="bold"
+			android:textSize="24sp"
+		 />
+	</LinearLayout>
+</ScrollView>

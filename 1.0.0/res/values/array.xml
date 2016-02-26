@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="bg_colors_array">
+        <item>Black</item>
+        <item>Grey</item>
+		<item>White</item>
+        <item>Clear</item>
+        </string-array>
+	<string-array
+        name="update_intervals_array">
+        <item>24 Hours</item>
+        <item>12 Hours</item>
+		<item>6 Hours</item>
+        <item>4 Hours (Default)</item>
+        <item>2 Hours</item>
+		<item>1 Hour</item>
+    </string-array>
+   	<string-array
+        name="speeds_array">
+        <item>Fast</item>
+        <item>Med</item>
+		<item>Slow</item>
+    </string-array>
+</resources>
